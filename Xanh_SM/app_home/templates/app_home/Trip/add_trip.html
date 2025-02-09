@@ -1,0 +1,181 @@
+{% extends 'master.html' %}
+
+{% block leftmenu %}
+    {% include '../../includes/left-menu.html' %}
+{% endblock %}
+
+{% block footer%}
+    {% include '../../includes/footer.html'%}
+{% endblock %}
+
+{% block navbar %}
+    {% include '../../includes/nav-bar.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card mb-4">
+        <h5 class="card-header">Thêm Mới Chuyến Đi</h5>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            
+                <!-- Tài xế -->
+                <div class="mb-3 row">
+                    <label for="id_driver" class="col-md-2 col-form-label">Tài xế</label>
+                    <div class="col-md-10">
+                        <select class="form-control" name="driver" id="id_driver" required>
+                            {% for driver in drivers %}
+                                <option value="{{ driver.id }}" {% if form.driver.value == driver.id %} selected {% endif %}>{{ driver.user }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- Vehicle Type -->
+                <div class="mb-3 row">
+                    <label for="vehicle_type" class="col-md-2 col-form-label">Loại xe</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" value="" readonly>
+                    </div>
+                </div>
+
+                <script>
+                    // Chuyển các thông tin tài xế và loại xe sang một đối tượng JavaScript
+                    var drivers = [
+                        {% for driver in drivers %}
+                            { id: "{{ driver.id }}", vehicle_type: "{{ driver.vehicle_type }}" },
+                        {% endfor %}
+                    ];
+
+                    // Lắng nghe sự kiện thay đổi của dropdown tài xế
+                    document.getElementById('id_driver').addEventListener('change', function() {
+                        var driverId = this.value; // Lấy id tài xế đã chọn
+                        var vehicleTypeField = document.getElementById('vehicle_type'); // Trường hiển thị vehicle_type
+
+                        // Kiểm tra xem đã chọn tài xế chưa
+                        if (driverId) {
+                            // Tìm tài xế có id tương ứng và hiển thị loại xe của tài xế
+                            var selectedDriver = drivers.find(driver => driver.id == driverId);
+                            if (selectedDriver) {
+                                vehicleTypeField.value = selectedDriver.vehicle_type; // Hiển thị vehicle_type
+                            }
+                        } else {
+                            vehicleTypeField.value = ''; // Nếu không chọn tài xế, bỏ trống vehicle_type
+                        }
+                    });
+                </script>
+
+
+                <!-- Học sinh -->
+                <div class="mb-3 row">
+                    <label for="id_students" class="col-md-2 col-form-label">Học sinh</label>
+                    <div class="col-md-10">
+                        <select class="form-control" name="students" id="id_students" required>
+                            {% for student in students %}
+                                <option value="{{ student.id }}" {% if student.id in form.students.value %} selected {% endif %}>{{ student.user }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Điểm xuất phát -->
+                <div class="mb-3 row">
+                    <label for="id_start_location" class="col-md-2 col-form-label">Điểm xuất phát</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="start_location" id="id_start_location" placeholder="Điểm xuất phát" value="{{ form.start_location.value }}" required />
+                    </div>
+                </div>
+
+                <!-- Điểm đến -->
+                <div class="mb-3 row">
+                    <label for="id_end_location" class="col-md-2 col-form-label">Điểm đến</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="end_location" id="id_end_location" placeholder="Điểm đến" value="{{ form.end_location.value }}" required />
+                    </div>
+                </div>
+
+                <!-- Thời gian bắt đầu -->
+                <div class="mb-3 row">
+                    <label for="id_start_time" class="col-md-2 col-form-label">Thời gian bắt đầu</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="datetime-local" name="start_time" id="id_start_time" value="{{ form.start_time.value|date:'Y-m-d\TH:i' }}" required />
+                    </div>
+                </div>
+
+                <!-- Thời gian kết thúc -->
+                <div class="mb-3 row">
+                    <label for="id_end_time" class="col-md-2 col-form-label">Thời gian kết thúc</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="datetime-local" name="end_time" id="id_end_time" value="{{ form.end_time.value|date:'Y-m-d\TH:i' }}" />
+                    </div>
+                </div>
+
+                <!-- Trạng thái -->
+                <div class="mb-3 row">
+                    <label for="id_status" class="col-md-2 col-form-label">Trạng thái</label>
+                    <div class="col-md-10">
+                        <select class="form-control" name="status" id="id_status" required>
+                            <option value="picking_up" {% if form.status.value == "picking_up" %} selected {% endif %}>Đang đón khách</option>
+                            <option value="ongoing" {% if form.status.value == "ongoing" %} selected {% endif %}>Đang di chuyển</option>
+                            <option value="completed" {% if form.status.value == "completed" %} selected {% endif %}>Hoàn thành</option>
+                            <option value="canceled" {% if form.status.value == "canceled" %} selected {% endif %}>Hủy</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Khoảng cách -->
+                <div class="mb-3 row">
+                    <label for="id_distance" class="col-md-2 col-form-label">Khoảng cách (km)</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="number" step="0.1" name="distance" id="id_distance" placeholder="Khoảng cách" value="form.distance.value"/>
+                    </div>
+                </div>
+
+                <!-- Giá vé -->
+                <div class="mb-3 row">
+                    <label for="id_price" class="col-md-2 col-form-label">Giá vé</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="number" step="1" name="price" id="id_price" placeholder="Giá vé" value="" readonly />
+                    </div>
+                </div>
+
+                <script>
+                    function updatePrice() {
+                        var distance = parseFloat(document.getElementById('id_distance').value);
+
+                        if (!isNaN(distance) && distance > 0) {
+                            var price = distance * 10000;
+                            document.getElementById('id_price').value = price;
+                        } else {
+                            document.getElementById('id_price').value = '';
+                        }
+                    }
+
+                    document.getElementById('id_distance').addEventListener('input', updatePrice);
+                </script>
+
+                <!-- Nút Gửi -->
+                <div class="mb-3 row">
+                    <div class="col-md-10 offset-md-2">
+                        <button type="submit" class="btn btn-primary">Thêm Chuyến Đi</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>      
+</div>
+{% endblock %}

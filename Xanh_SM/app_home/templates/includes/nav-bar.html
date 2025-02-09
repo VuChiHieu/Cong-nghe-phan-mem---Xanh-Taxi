@@ -1,0 +1,43 @@
+{% load static%}
+<style>
+  .custom-navbar {
+    background-color: rgb(78, 219, 221) !important;
+  }
+  .custom-navbar .navbar-brand,
+  .custom-navbar .nav-link {
+    color: white !important;
+    font-weight: bold;
+  }
+  .custom-navbar .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.1);  /* Màu nền khi hover */
+    color: rgb(0, 0, 0) !important; /* Màu chữ khi hover */
+    border-radius: 5px;  /* Viền bo tròn khi hover */
+    padding: 5px 10px;  /* Thêm padding để tạo khoảng cách */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">Hệ thống quản lý</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/student/' %}active{% endif %}" href="{% url 'student' %}">Sinh viên</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/driver/' %}active{% endif %}" href="{% url 'driver' %}">Tài xế</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/trip/' %}active{% endif %}" href="{% url 'trip' %}">Chuyến đi</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

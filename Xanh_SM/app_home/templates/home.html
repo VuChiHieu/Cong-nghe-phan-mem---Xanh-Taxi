@@ -1,0 +1,113 @@
+{% extends "master.html" %}
+
+{% block navbar %}
+    {% include 'includes/nav-bar.html'%}
+{% endblock %}
+
+{% block leftmenu %}
+    {% include 'includes/left-menu.html'%}
+{% endblock %}
+
+{% block footer %}
+    {% include 'includes/footer.html'%}
+{% endblock %}
+
+{% block content %}
+  <!-- Card Menu Section -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Card for Register Driver -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm d-flex flex-column h-100">
+                    <!-- Hình ảnh cho tài xế, thêm class để ảnh đều nhau -->
+                    <img src="https://cdn-icons-png.flaticon.com/128/2684/2684225.png" class="card-img img-fluid" alt="Register Driver">
+                    <div class="card-body">
+                        <h5 class="card-title">Thêm Tài Xế</h5>
+                        <p class="card-text">Thêm một tài xế mới vào hệ thống.</p>
+                        <a href="{% url 'register_driver' %}" class="btn btn-primary">Đến trang</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card for Register Student -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm d-flex flex-column h-100">
+                    <!-- Hình ảnh cho thêm học sinh, thêm class để ảnh đều nhau -->
+                    <img src="https://cdn-icons-png.flaticon.com/128/9316/9316744.png" class="card-img-top img-fluid" alt="Register Student">
+                    <div class="card-body">
+                        <h5 class="card-title">Thêm Học Sinh</h5>
+                        <p class="card-text">Thêm học sinh mới vào hệ thống.</p>
+                        <a href="{% url 'register_student' %}" class="btn btn-primary">Đến trang</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card for Add Trip -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm d-flex flex-column h-100">
+                    <!-- Hình ảnh cho chuyến đi, thêm class để ảnh đều nhau -->
+                    <img src="https://cdn-icons-png.flaticon.com/128/9800/9800512.png" class="card-img-top img-fluid" alt="Add Trip">
+                    <div class="card-body">
+                        <h5 class="card-title">Thêm Chuyến Đi</h5>
+                        <p class="card-text">Thêm chuyến đi mới vào hệ thống.</p>
+                        <a href="{% url 'add_trip' %}" class="btn btn-primary">Đến trang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 280px; 
+  }
+
+  .card-img {
+    height: 80px; 
+    object-fit: contain; 
+    padding: 10px; 
+  }
+
+  .card-body {
+    text-align: center;
+    padding: 12px; /* Giảm padding để thẻ gọn hơn */
+  }
+
+  /* Đảm bảo hình ảnh hiển thị sắc nét */
+  .card-img-top {
+    height: 80px; /* Tăng chiều cao một chút */
+    object-fit: contain;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 16px; /* Giảm kích thước chữ */
+  }
+
+  .card-text {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    padding: 6px 12px; /* Thu nhỏ nút */
+    font-size: 14px;
+  }
+</style>
+{% endblock %}

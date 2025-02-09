@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+
+{% block content %}
+<head>
+    <title>Xóa Chuyến Đi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-danger my-4">Xóa Chuyến Đi</h1>
+        
+        <!-- Confirmation for deleting trip -->
+        <p class="text-center">
+            Bạn có chắc chắn muốn xóa chuyến đi <strong>{{ trip.start_location }} - {{ trip.end_location }}</strong> vào <strong>{{ trip.start_time }}</strong> không?
+        </p>
+
+        <!-- Form to confirm deletion -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger">Có, Xóa</button>
+                <a href="{% url 'trip' %}" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}
+
+{% block leftmenu %}
+    {% include '../../includes/left-menu.html' %}
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'master.html' %}
+
+{% block leftmenu%}
+    {% include '../../includes/left-menu.html'%}
+{% endblock %}
+
+{% block footer%}
+    {% include '../../includes/footer.html'%}
+{% endblock %}
+
+{% block navbar %}
+    {% include '../../includes/nav-bar.html'%}
+{% endblock %}
+
+{% block content %}
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="card mb-4">
+        <h5 class="card-header">Đăng Ký Tài Xế XanhSM</h5>
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                  <ul>
+                      {% for field in form %}
+                          {% for error in field.errors %}
+                              <li>{{ error }}</li>
+                          {% endfor %}
+                      {% endfor %}
+                  </ul>
+              </div>
+          {% endif %}
+          
+            <!-- Tên Tài Khoản -->
+            <div class="mb-3 row">
+              <label for="id_user" class="col-md-2 col-form-label">Họ và Tên</label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" name="user" id="id_user" placeholder="Tên tài khoản" value="{{ form.user.value }}" required />
+              </div>
+            </div>
+      
+            <!-- CCCDCCCD -->
+            <div class="mb-3 row">
+              <label for="id_driver_id" class="col-md-2 col-form-label">CCCD</label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" name="driver_id" id="id_driver_id" placeholder="Mã tài xế" value="{{ form.driver_id.value }}" required />
+              </div>
+            </div>
+      
+            <!-- Loại xe -->
+            <div class="mb-3 row">
+              <label for="id_vehicle_type" class="col-md-2 col-form-label">Loại Xe</label>
+              <div class="col-md-10">
+                  <select class="form-control" name="vehicle_type" id="id_vehicle_type" required>
+                      <option value="Bike" {% if form.vehicle_type.value == "Bike" %} selected {% endif %}>Bike</option>
+                      <option value="Car" {% if form.vehicle_type.value == "Car" %} selected {% endif %}>Car</option>
+                  </select>
+              </div>
+          </div>
+          
+
+            <!-- Giấy phép lái xe -->
+            <div class="mb-3 row">
+              <label for="id_license_number" class="col-md-2 col-form-label">Giấy phép lái xe</label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" name="license_number" id="id_license_number" placeholder="Giấy phép lái xe" value="{{ form.license_number.value }}" required />
+              </div>
+            </div>
+
+            <!-- Số Điện Thoại -->
+            <div class="mb-3 row">
+              <label for="id_phone" class="col-md-2 col-form-label">Số Điện Thoại</label>
+              <div class="col-md-10">
+                <input class="form-control" type="tel" name="phone" id="id_phone" placeholder="Số điện thoại" value="{{ form.phone.value }}" required />
+              </div>
+            </div>
+      
+            <!-- Giới Tính -->
+            <div class="mb-3 row">
+              <label for="id_gender" class="col-md-2 col-form-label">Giới Tính</label>
+              <div class="col-md-10">
+                <select class="form-control" name="gender" id="id_gender" required>
+                  <option value="Nam" {% if form.gender.value == "Nam" %} selected {% endif %}>Nam</option>
+                  <option value="Nữ" {% if form.gender.value == "Nữ" %} selected {% endif %}>Nữ</option>
+                </select>
+              </div>
+            </div>
+      
+            <!-- Tình Trạng Sức Khỏe -->
+            <div class="mb-3 row">
+              <label for="id_health_status" class="col-md-2 col-form-label">Tình Trạng Sức Khỏe</label>
+              <div class="col-md-10">
+                  <input class="form-control" type="text" name="health_status" id="id_health_status" placeholder="Nhập tình trạng sức khỏe" value="{{ form.health_status.value }}" required />
+              </div>
+            </div>
+            
+            <!-- Tài khoản ví điện tử -->
+            <div class="mb-3 row">
+              <label for="id_my_wallet" class="col-md-2 col-form-label">Tài khoản ví điện tử</label>
+              <div class="col-md-10">
+                <input class="form-control" type="tel" name="my_wallet" id="id_my_wallet" placeholder="Tài khoản ví điện tử" value="{{ form.my_wallet.value }}" required />
+              </div>
+            </div>
+
+            <!-- Biến động số dư-->
+            <div class="mb-3 row">
+              <label for="id_health_status" class="col-md-2 col-form-label">Số dư khả dụng</label>
+              <div class="col-md-10">
+                  <input class="form-control" type="number" step ="1" name="revenue" id="id_revenue" placeholder="Biến động số dư" value="{{ form.revenue.value }}" required />
+              </div>
+            </div>
+
+
+            <!-- Nút Gửi -->
+            <div class="mb-3 row">
+              <div class="col-md-10 offset-md-2">
+                <button type="submit" class="btn btn-primary">Đăng Ký Tài Xế</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>      
+    </div>
+{% endblock %}

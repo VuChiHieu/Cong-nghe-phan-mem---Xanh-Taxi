@@ -1,0 +1,120 @@
+{% extends "master.html" %}
+
+{% block leftmenu%}
+    {% include '../../includes/left-menu.html'%}
+{% endblock%}
+
+{% block footer%}
+    {% include '../../includes/footer.html'%}
+{% endblock %}
+
+{% block navbar %}
+    {% include '../../includes/nav-bar.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Card for Deposit -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm d-flex flex-column h-100">
+                <div class="card-body text-center">
+                    <!-- Icon for Deposit -->
+                    <h2>💰</h2>
+                    <h5 class="card-title">Nạp Tiền</h5>
+                    <p class="card-text">Nạp tiền vào ví của bạn.</p>
+                    <a href="{% url 'wallet_deposit' user_type=user_type user_id=user.id %}" class="btn btn-primary">Đến trang</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Withdraw -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm d-flex flex-column h-100">
+                <div class="card-body text-center">
+                    <!-- Icon for Withdraw -->
+                    <h2>💳</h2>
+                    <h5 class="card-title">Rút Tiền</h5>
+                    <p class="card-text">Rút tiền từ ví của bạn.</p>
+                    <a href="{% url 'wallet_withdraw' user_type=user_type user_id=user.id %}" class="btn btn-warning">Đến trang</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Refund -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm d-flex flex-column h-100">
+                <div class="card-body text-center">
+                    <!-- Icon for Refund -->
+                    <h2>🔄</h2>
+                    <h5 class="card-title">Hoàn Tiền</h5>
+                    <p class="card-text">Hoàn tiền vào ví của bạn.</p>
+                    <a href="{% url 'wallet_refund' user_type=user_type user_id=user.id %}" class="btn btn-danger">Đến trang</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card for Transaction History -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm d-flex flex-column h-100">
+                <div class="card-body text-center">
+                    <!-- Icon for Transaction History -->
+                    <h2>📜</h2>
+                    <h5 class="card-title">Lịch Sử Giao Dịch</h5>
+                    <p class="card-text">Xem lịch sử giao dịch của ví.</p>
+                    <a href="{% url 'wallet_transaction_history' user_type=user_type user_id=user.id %}" class="btn btn-info">Xem Lịch Sử</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="mt-4">
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 280px; 
+  }
+
+  .card-img {
+    height: 80px; 
+    object-fit: contain; 
+    padding: 10px; 
+  }
+
+  .card-body {
+    text-align: center;
+    padding: 12px; /* Giảm padding để thẻ gọn hơn */
+  }
+
+  /* Đảm bảo hình ảnh hiển thị sắc nét */
+  .card-img-top {
+    height: 80px; /* Tăng chiều cao một chút */
+    object-fit: contain;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 16px; /* Giảm kích thước chữ */
+  }
+
+  .card-text {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    padding: 6px 12px; /* Thu nhỏ nút */
+    font-size: 14px;
+  }
+</style>
+{% endblock %}

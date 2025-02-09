@@ -1,0 +1,53 @@
+{% extends "master.html" %}
+
+{% block leftmenu %}
+    {% include '../../includes/left-menu.html' %}
+{% endblock %}
+
+{% block footer%}
+    {% include '../../includes/footer.html'%}
+{% endblock %}
+
+{% block navbar %}
+    {% include '../../includes/nav-bar.html'%}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4 text-center fw-bold">Danh sách chuyến đi</h1>
+    <table class="table table-striped">
+        <thead style="background-color:rgb(120, 237, 239); color: white;">
+            <tr>
+                <th>Tài xế</th>
+                <th>Điểm đến</th>
+                <th>Thời gian bắt đầu</th>
+                <th>Thời gian kết thúc</th>
+                <th>Giá vé</th>
+                <!--<th>Học sinh</th>-->
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trip in trips %}
+            <tr>
+                <td>{{ trip.driver.user }}</td>
+                <td>{{ trip.end_location }}</td>
+                <td>{{ trip.start_time }}</td>
+                <td>{{ trip.end_time }}</td>
+                <td>{{ trip.price }} VND</td>
+               <!--<td>
+                    {% for student in trip.students.all %}
+                        <span>{{ student.user }}</span><br>
+                    {% endfor %}
+                </td>--> 
+                <td>
+                    <a href="{% url 'edit_trip' trip.id %}" class="btn btn-warning" style="background-color:rgb(112, 227, 245); color: white;">Sửa</a>
+                    <a href="{% url 'delete_trip' trip.id %}" class="btn btn-danger" style="background-color:rgb(244, 104, 104); color: white;">Xóa</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'add_trip' %}" class="btn btn-success">Thêm chuyến đi mới</a>
+</div>
+{% endblock %}

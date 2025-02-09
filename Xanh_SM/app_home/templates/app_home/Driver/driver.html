@@ -1,0 +1,96 @@
+{% extends "master.html" %}
+
+{% block footer%}
+    {% include '../../includes/footer.html'%}
+{% endblock %}
+
+{% block navbar %}
+    {% include '../../includes/nav-bar.html'%}
+{% endblock %}
+
+{% block content %}
+<head>
+    <title>Danh sách tài xế</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Thêm CSS tùy chỉnh để đảm bảo bảng có màu nền như yêu cầu -->
+    <style>
+        .table thead {
+            background-color:rgb(120, 237, 239); color: white;";
+            color: white;
+        }
+        
+        .table tbody tr {
+            background-color:rgb(199, 239, 248); 
+        }
+        
+        .table tbody tr:hover {
+            background-color:rgb(195, 245, 250); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center title-color my-4">
+            Danh sách tài xế
+        </h1>
+        
+        <!-- Table showing the list of drivers -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Họ và tên</th>
+                    <th scope="col">CCCD</th>
+                    <th scope="col">GPLX</th>
+                    <th scope="col">Loại xe</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Sức khỏe</th>
+                    <th scope="col">Ví điện tử</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>    
+            <tbody>
+                {% for driver in drivers %}
+                <tr>
+                    <td>{{ driver.user }}</td>
+                    <td>{{ driver.driver_id }}</td>
+                    <td>{{ driver.license_number}}
+                    <td>{{ driver.vehicle_type }}</td>
+                    <td>{{ driver.phone }}</td>
+                    <td>{{ driver.gender }}</td>
+                    <td>{{ driver.health_status}}</td>
+                    <td>{{ driver.my_wallet}}</td>
+                    <td>
+                        <!-- Dấu ba chấm dọc để hiển thị menu -->
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ⋮ <!-- Biểu tượng ba chấm -->
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'edit_driver' driver.id %}" style="background-color:rgb(91, 231, 115); color: white;">Sửa</a>
+                                <a class="dropdown-item" href="{% url 'delete_driver' driver.id %}" onclick="return confirm('Bạn muốn xóa tài xế này?')" style="background-color:rgb(244, 104, 104); color: white;">Xóa</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Button to add new driver -->
+        <div class="text-center">
+            <a href="{% url 'register_driver' %}" class="btn btn-success">Thêm Tài Xế</a>
+        </div>
+    </div>
+</body>
+
+{% endblock %}
+{% block leftmenu %}
+    {% include '../../includes/left-menu.html' %}
+{% endblock %}

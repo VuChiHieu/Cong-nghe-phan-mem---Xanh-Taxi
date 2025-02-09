@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fa;
+    }
+
+    #layout-menu {
+      width: 250px;
+      background-color:#28BDBF;
+      padding-top: 10px;
+      color: #fff;
+      display: block;  
+    }
+
+    .app-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+    }
+
+    .app-brand img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .menu-inner-shadow {
+      background-color: rgba(239, 244, 244, 0.2);
+      height: 1px;
+      margin-top: 10px;
+    }
+
+    .menu-inner {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .menu-item a.menu-link {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      background-color:#28BDBF; color: white;";  /* Đảm bảo có màu nền cho các mục menu */
+    }
+
+    .menu-item a.menu-link:hover {
+      background-color: #28BDBF; color: white;";
+    }
+
+    .menu-item .menu-sub a.menu-link {
+      color:rgb(120, 237, 239); color: white;";
+      text-decoration: none;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    .menu-item .menu-sub a.menu-link:hover {
+      background-color: rgb(120, 237, 239); color: white;";
+    }
+
+    .menu-header-text {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding-bottom: 10px;
+      color: rgb(120, 237, 239); color: white;";
+    }
+
+    .menu-item.active a.menu-link {
+      background-color: rgb(120, 237, 239); color: white;";
+    }
+
+    .menu-item .menu-toggle {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .menu-item .menu-toggle i {
+      margin-right: 10px;
+    }
+
+    .menu-sub {
+      list-style: block;
+      padding-left: 20px;
+      display: block; 
+    }
+
+    .menu-item.active .menu-sub {
+      display: block;
+    }
+
+    .layout-menu-toggle {
+      display: block;
+    }
+
+    @media screen and (max-width: 992px) {
+      .layout-menu-toggle {
+        display: block;
+        color: #fff;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+      <a href="http://127.0.0.1:8000/">
+        <img alt="File:Xanh SM logo.svg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Xanh_SM_logo.svg/110px-Xanh_SM_logo.svg.png?20241026233517" decoding="async" width="110" height="32" srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Xanh_SM_logo.svg/165px-Xanh_SM_logo.svg.png?20241026233517 1.5x, https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Xanh_SM_logo.svg/220px-Xanh_SM_logo.svg.png?20241026233517 2x" data-file-width="110" data-file-height="32">
+      </a>
+    </div>
+  
+    <div class="menu-inner-shadow"></div>
+  
+    <ul class="menu-inner py-1">
+      <!-- Student -->
+      <li class="menu-item">
+          <a href="http://127.0.0.1:8000/student" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-user"></i>
+              <div data-i18n="Student">Student</div>
+          </a>
+      </li>
+  
+      <!-- Driver -->
+      <li class="menu-item">
+          <a href="http://127.0.0.1:8000/driver" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-car"></i>
+              <div data-i18n="Driver">Driver</div>
+          </a>
+      </li>
+
+      <!-- Trip -->
+      <li class="menu-item">
+        <a href="http://127.0.0.1:8000/trip" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-map"></i> <!-- Bạn có thể thay đổi icon ở đây -->
+          <div data-i18n="Trip">Trip</div>
+        </a>
+      </li>
+
+      <!-- Wallet -->
+      <li class="menu-item">
+        <a href="http://127.0.0.1:8000/wallet" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-wallet"></i> <!-- Bạn có thể thay đổi icon ở đây -->
+            <div data-i18n="Wallet">Wallet</div>
+        </a>
+      </li>
+    </ul>  
+  </aside>
+  
+
+  <script>
+    // Hàm toggle để mở/đóng menu
+    function toggleMenu() {
+      var menu = document.getElementById('layout-menu');
+      var toggleIcon = document.querySelector('.layout-menu-toggle i');
+
+      menu.classList.toggle('collapsed');
+      if(menu.classList.contains('collapsed')) {
+        toggleIcon.style.display = 'none';
+        toggleIcon.nextElementSibling.style.display = 'inline-block';
+      } else {
+        toggleIcon.style.display = 'inline-block'; 
+        toggleIcon.nextElementSibling.style.display = 'none'; 
+      }
+    }
+  </script>
+
+
+</body>
+</html>

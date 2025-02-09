@@ -1,0 +1,92 @@
+{% extends 'master.html' %}
+
+{% block leftmenu %}
+    {% include '../../includes/left-menu.html' %}
+{% endblock %}
+
+{% block footer%}
+    {% include '../../includes/footer.html'%}
+{% endblock %}
+
+{% block content%}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Danh Sách Ví Tài Xế</h2>
+    <div class="row">
+        {% for driver in drivers %}
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm text-center">
+                <img src="https://cdn-icons-png.flaticon.com/128/2684/2684225.png" class="card-img-top img-fluid" alt="Driver">
+                <div class="card-body">
+                    <h5 class="card-title">{{ driver.user }}</h5>
+                    <p class="card-text">Tài khoản ví: {{ driver.my_wallet }}</p>
+                    <p class="card-text">Doanh thu: {{ driver.revenue }} VND</p>
+                    <a href="{% url 'wallet_balance' user_type='driver' user_id=driver.driver_id %}" class="btn btn-primary">Xem Chi Tiết</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Không có tài xế nào.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Nút quay lại ở góc dưới cùng bên trái, không cố định -->
+    <div class="row justify-content-start mb-3">
+        <div class="col-md-10">
+            <a href="{% url 'wallet' %}" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}
+
+{% block extra_css %}
+<style>
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 280px; 
+  }
+
+  .card-img {
+    height: 80px; 
+    object-fit: contain; 
+    padding: 10px; 
+  }
+
+  .card-body {
+    text-align: center;
+    padding: 12px; /* Giảm padding để thẻ gọn hơn */
+  }
+
+  /* Đảm bảo hình ảnh hiển thị sắc nét */
+  .card-img-top {
+    height: 80px; /* Tăng chiều cao một chút */
+    object-fit: contain;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 16px; /* Giảm kích thước chữ */
+  }
+
+  .card-text {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    padding: 6px 12px; /* Thu nhỏ nút */
+    font-size: 14px;
+  }
+
+  .row.justify-content-start {
+    margin-bottom: 20px; /* Điều chỉnh khoảng cách dưới */
+  }
+
+  .btn {
+    margin-left: 0; /* Đảm bảo nút nằm ở bên trái */
+  }
+</style>
+{% endblock %}
