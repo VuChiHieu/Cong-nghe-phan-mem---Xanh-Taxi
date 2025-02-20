@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ driver.user }}</h5>
                     <p class="card-text">Tài khoản ví: {{ driver.my_wallet }}</p>
-                    <p class="card-text">Doanh thu: {{ driver.revenue }} VND</p>
+                    <p class="card-text">Số dư: {{ driver.revenue }} VND</p>
                     <a href="{% url 'wallet_balance' user_type='driver' user_id=driver.driver_id %}" class="btn btn-primary">Xem Chi Tiết</a>
                 </div>
             </div>

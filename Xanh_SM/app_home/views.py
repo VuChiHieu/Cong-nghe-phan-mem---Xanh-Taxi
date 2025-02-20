@@ -1,13 +1,35 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .forms import DriverForm, StudentForm
-from app_admin.models import Student, Driver
+from app_admin.models import Student, Driver, Trip
 from django.core.exceptions import ValidationError
 from django.contrib import messages
-
+from datetime import date
 
 def home(request):
-    return render(request, 'home.html')
+    # Thống kê số lượng xe máy & ô tô
+    motorcycle_count = Driver.objects.filter(vehicle_type="Bike").count()
+    car_count = Driver.objects.filter(vehicle_type="Car").count()
+
+    # Thống kê số tài xế nam & nữ
+    male_drivers = Driver.objects.filter(gender="Nam").count()
+    female_drivers = Driver.objects.filter(gender="Nữ").count()
+
+    # Thống kê số chuyến đi trong ngày hôm nay
+    today = date.today()
+    trips_per_hour = []
+    for hour in range(24):
+        count = Trip.objects.filter(start_time__date=today, start_time__hour=hour).count()
+        trips_per_hour.append(count)
+
+    context = {
+        "motorcycle_count": motorcycle_count,
+        "car_count": car_count,
+        "male_drivers": male_drivers,
+        "female_drivers": female_drivers,
+        "trips_per_hour": trips_per_hour,
+    }
+    return render(request, "home.html", context)
 
 
 #Driver

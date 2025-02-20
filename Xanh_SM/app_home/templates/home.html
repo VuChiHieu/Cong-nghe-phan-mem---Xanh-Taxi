@@ -66,7 +66,87 @@
             </div>
         {% endfor %}
     </div>
-{% endif %}
+  {% endif %}
+
+  <div class="container mt-4">
+      <div class="row">
+          <!-- Biểu đồ cột: Thống kê xe máy & ô tô -->
+          <div class="col-md-6">
+              <canvas id="vehicleChart"></canvas>
+          </div>
+  
+          <!-- Biểu đồ cột: Thống kê tài xế Nam & Nữ -->
+          <div class="col-md-6">
+              <canvas id="genderChart"></canvas>
+          </div>
+      </div>
+  
+      <div class="row mt-4">
+          <!-- Biểu đồ đường: Số chuyến đi trong ngày -->
+          <div class="col-md-12">
+              <canvas id="tripChart"></canvas>
+          </div>
+      </div>
+  </div>
+  
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        new Chart(document.getElementById("vehicleChart"), {
+          type: "bar",
+          data: {
+              labels: ["Xe Máy", "Ô Tô"],
+              datasets: [{
+                  label: "Số lượng",
+                  data: [{{ motorcycle_count }}, {{ car_count }}],
+                  backgroundColor: ["#4CAF50", "#FF9800"]
+              }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  legend: {
+                      display: true, // Hiển thị chú thích
+                      position: "top", // Đưa legend lên trên
+                      labels: {
+                          boxWidth: 20, // Kích thước ô màu
+                          font: {
+                              size: 14 // Cỡ chữ
+                          }
+                      }
+                  }
+              }
+          }
+      });
+      
+  
+          // Biểu đồ tài xế Nam & Nữ
+          new Chart(document.getElementById("genderChart"), {
+              type: "pie",
+              data: {
+                  labels: ["Nam", "Nữ"],
+                  datasets: [{
+                      label: "Số lượng",
+                      data: [{{ male_drivers }}, {{ female_drivers }}],
+                      backgroundColor: ["#2196F3", "#E91E63"]
+                  }]
+              }
+          });
+  
+          // Biểu đồ đường: Số chuyến đi trong ngày
+          new Chart(document.getElementById("tripChart"), {
+              type: "line",
+              data: {
+                  labels: ["0h", "1h", "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h", "19h", "20h", "21h", "22h", "23h"],
+                  datasets: [{
+                      label: "Số chuyến đi",
+                      data: {{ trips_per_hour|safe }},
+                      borderColor: "#3e95cd",
+                      fill: false
+                  }]
+              }
+          });
+      });
+  </script>  
 {% endblock %}
 
 {% block extra_css %}
