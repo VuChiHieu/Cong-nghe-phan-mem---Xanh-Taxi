@@ -174,7 +174,7 @@ def register_student(request):
         # Lấy giá trị wallet từ request.POST
         my_wallet = request.POST.get('my_wallet')
         if my_wallet and (len(my_wallet) != 10 or not my_wallet.isdigit()):
-            form.add_error('my_my_wallet', 'Ví điện tử phải có 10 chữ số!')
+            form.add_error('my_wallet', 'Ví điện tử phải có 10 chữ số!')
 
         # Nếu form có lỗi, trả lại form với lỗi
         if form.errors:
